@@ -220,6 +220,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="forbidden_methods.cpp" />
     <ClCompile Include="golden_amd.cpp">
       <UseStandardPreprocessor Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</UseStandardPreprocessor>
       <UseStandardPreprocessor Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</UseStandardPreprocessor>
