@@ -1,5 +1,9 @@
 #include <cstdint>
+#ifndef _M_ARM64
 #include <immintrin.h>
+#else
+#include "sse2neon.h"
+#endif
 
 // for these approaches, the poly CANNOT be changed, because these approaches
 // use x86 hardware instructions which hardcode this poly internally.
