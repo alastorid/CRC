@@ -35,6 +35,7 @@ uint32_t option_13_golden_intel(const void* M, uint32_t bytes, uint32_t prev = 0
 uint32_t option_14_golden_amd(const void* M, uint32_t bytes, uint32_t prev = 0);
 
 uint32_t option_99_naive_cpp_table(const void* M, uint32_t bytes);
+uint32_t option_aa_not_crc_but_xor1b(const void* M, uint32_t bytes);
 
 int main()
 {
@@ -115,6 +116,7 @@ int main()
         TestItem("Option 14: Golden   - AMD     ",	option_14_golden_amd,		    9000),
         TestItem("Option 13: Golden   - Intel   ",	option_13_golden_intel,		    10000),
         TestItem("Option 99: Naive-Gary S. Brown",	option_99_naive_cpp_table,      1100),
+        TestItem("Option aa: NotCRC - XOR 1 byte",	option_aa_not_crc_but_xor1b,    10000),
     };
 
     for (const TestItem& item : items)

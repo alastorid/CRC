@@ -33,6 +33,9 @@
     <ClCompile Include="golden_amd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="unrelated_methods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="naive_methods_asm.asm">
