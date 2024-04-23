@@ -240,7 +240,9 @@
       <UseStandardPreprocessor Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</UseStandardPreprocessor>
     </ClCompile>
     <ClCompile Include="naive_methods_cpp.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <EnableEnhancedInstructionSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+    </ClCompile>
     <ClCompile Include="tabular_methods.cpp" />
     <ClCompile Include="unrelated_methods.cpp" />
   </ItemGroup>
