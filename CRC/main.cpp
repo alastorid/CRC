@@ -40,6 +40,9 @@ uint32_t option_aa_not_crc_but_xor1b(const void* M, uint32_t bytes);
 uint32_t option_ms_RtlCrc32(const void* M, uint32_t bytes, uint32_t prev/* = 0*/);
 uint32_t option_ms2_RtlComputeCrc32(const void* M, uint32_t bytes, uint32_t prev/* = 0*/);
 
+// should 99% be the same as hardware one
+uint32_t option_aa_hardware_8_bytes_aarch64_poly1(const void* M, uint32_t bytes, uint32_t prev/* = 0*/);
+uint32_t option_aa_hardware_8_bytes_aarch64_poly2(const void* M, uint32_t bytes, uint32_t prev/* = 0*/);
 int main()
 {
     if (kPrintTables)
@@ -122,6 +125,10 @@ int main()
         TestItem("Option aa: NotCRC - XOR 1 byte",	option_aa_not_crc_but_xor1b,    10000),
         TestItem("Option ms:  ntdll!RtlCrc32    ",	option_ms_RtlCrc32,             1000),
         TestItem("Option ms2: RtlComputeCrc32   ",	option_ms2_RtlComputeCrc32,     1000),
+#ifdef _M_ARM64
+        TestItem("Option aa: naive __crc32d     ",	option_aa_hardware_8_bytes_aarch64_poly1,     5000),
+        TestItem("Option aa: naive __crc32cd    ",	option_aa_hardware_8_bytes_aarch64_poly2,     5000),
+#endif
     };
 
     for (const TestItem& item : items)
