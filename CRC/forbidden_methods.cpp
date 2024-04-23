@@ -4,7 +4,7 @@
 
 #pragma comment(lib, "ntdll.lib")
 uint32_t
-(*RtlComputeCrc32)(
+(__stdcall *RtlComputeCrc32)(
     uint32_t PartialCrc,
     const void* Buffer,
     uint32_t Length
