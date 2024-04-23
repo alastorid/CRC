@@ -1,10 +1,15 @@
 #include <cstdint>
 #include <cstdio>
-#ifndef _M_ARM64
-#include <immintrin.h>
-#else
+#if defined(_M_ARM64)
 #include "sse2neon.h"
+#elif defined(_M_ARM64EC)
+#include <intrin.h>
+//#include <softintrin.h>
+//#pragma comment(lib, "softintrin.lib")
+#else
+#include <immintrin.h>
 #endif
+
 
 // for this approach, the poly CANNOT be changed, because this approach
 // uses x86 hardware instructions which hardcode this poly internally.

@@ -11,7 +11,7 @@ void tabular_method_table_print_demo();
 void golden_lut_print_demo_intel();
 void golden_lut_print_demo_amd();
 
-#ifdef _M_AMD64
+#if !defined(_M_ARM64EC) && defined(_M_AMD64)
 extern "C"
 {
     uint32_t option_1_cf_jump(const void* M, uint32_t bytes);
@@ -96,13 +96,13 @@ int main()
     printf("--------------------------------|------------|---------------------------------\n");
 
     TestItem items[] = {
-#ifdef _M_AMD64
+#if !defined(_M_ARM64EC) && defined(_M_AMD64)
         TestItem("Option 1:  Naive    - CF Jump ",	option_1_cf_jump,			    20),
         TestItem("Option 2:  Naive    - Mul Mask",	option_2_multiply_mask,		    35),
         TestItem("Option 3:  Naive    - Bit Mask",	option_3_bit_mask,			    45),
 #endif
         TestItem("Option 5:  Naive    - CPP     ",	option_5_naive_cpp,			    60),
-#ifdef _M_AMD64
+#if !defined(_M_ARM64EC) && defined(_M_AMD64)
         TestItem("Option 4:  Naive    - Cmove   ",	option_4_cmove,				    60),
 #endif
         TestItem("Option 6:  Tabular  - 1 byte  ",	option_6_tabular_1_byte,	    180),

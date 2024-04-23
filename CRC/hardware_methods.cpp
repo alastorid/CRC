@@ -1,8 +1,10 @@
 #include <cstdint>
-#ifndef _M_ARM64
-#include <immintrin.h>
-#else
+#if defined(_M_ARM64)
 #include "sse2neon.h"
+#elif defined(_M_ARM64EC)
+#include <intrin.h>
+#else
+#include <immintrin.h>
 #endif
 
 // for these approaches, the poly CANNOT be changed, because these approaches
