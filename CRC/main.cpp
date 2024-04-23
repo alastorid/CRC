@@ -109,7 +109,7 @@ int main()
         TestItem("Option 12: Hardware - 8 bytes ",	option_12_hardware_8_bytes,	    5000),
         TestItem("Option 14: Golden   - AMD     ",	option_14_golden_amd,		    9000),
         TestItem("Option 13: Golden   - Intel   ",	option_13_golden_intel,		    10000),
-        TestItem("Option 99: Naive    - Gary S. Brown",	option_99_naive_cpp_table,  5000),
+        TestItem("Option 99: Naive-Gary S. Brown",	option_99_naive_cpp_table,      5000),
     };
 
     for (const TestItem& item : items)
