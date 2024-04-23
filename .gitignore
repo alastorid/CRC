@@ -1,0 +1,13 @@
+# Specify filepatterns you want git to ignore.
+
+.suo
+*.exe
+*.[ip]db
+*.iobj
+*.obj
+*.log
+*.tlog
+*.ilk
+*.recipe
+*.VC.*db*
+AutoPCH
