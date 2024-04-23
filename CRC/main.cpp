@@ -119,13 +119,15 @@ int main()
         TestItem("Option 9:  Tabular  - 8 bytes ",	option_9_tabular_8_bytes,	    1100),
         TestItem("Option 10: Tabular  - 16 bytes",	option_10_tabular_16_bytes,	    1500),
         TestItem("Option 12: Hardware - 8 bytes ",	option_12_hardware_8_bytes,	    5000),
+#ifndef _M_ARM64EC
         TestItem("Option 14: Golden   - AMD     ",	option_14_golden_amd,		    9000),
         TestItem("Option 13: Golden   - Intel   ",	option_13_golden_intel,		    10000),
+#endif
         TestItem("Option 99: Naive-Gary S. Brown",	option_99_naive_cpp_table,      1100),
         TestItem("Option aa: NotCRC - XOR 1 byte",	option_aa_not_crc_but_xor1b,    10000),
         TestItem("Option ms:  ntdll!RtlCrc32    ",	option_ms_RtlCrc32,             1000),
         TestItem("Option ms2: RtlComputeCrc32   ",	option_ms2_RtlComputeCrc32,     1000),
-#ifdef _M_ARM64
+#if defined(_M_ARM64) || defined(_M_ARM64EC)
         TestItem("Option aa: naive __crc32d     ",	option_aa_hardware_8_bytes_aarch64_poly1,     5000),
         TestItem("Option aa: naive __crc32cd    ",	option_aa_hardware_8_bytes_aarch64_poly2,     5000),
 #endif
