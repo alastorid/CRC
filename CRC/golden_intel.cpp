@@ -73,6 +73,30 @@ static constexpr uint64_t g_lut_intel[] = {
     0x6bde1ac7d0c6d7c9, 0xacfa310345aa5d4a, 0xae1175c2cf067065, 0xa51b613582f89c77,
 };
 
+// x86 helper
+#ifdef _M_IX86
+__forceinline uint64_t _mm_crc32_u64(uint64_t crc, uint64_t value) {
+    uint32_t low = value & 0xFFFFFFFF;
+    uint32_t high = (value >> 32) & 0xFFFFFFFF;
+
+    crc = _mm_crc32_u32((uint32_t)crc, low);
+    crc = _mm_crc32_u32((uint32_t)crc, high);
+
+    return crc;
+}
+// Extracts the lower 64 bits from a 128-bit SIMD (__m128i) register
+__forceinline int64_t _mm_cvtsi128_si64(__m128i a) {
+    int64_t result;
+    _mm_storel_epi64((__m128i*) & result, a);
+    return result;
+}
+// Loads a 64-bit integer into the lower part of a 128-bit SIMD
+__forceinline __m128i _mm_cvtsi64_si128(int64_t a) {
+    __m128i result = _mm_setzero_si128();
+    return _mm_loadl_epi64((__m128i*) & a);
+}
+#endif
+
 // using hardware crc instructions to generate lut
 #if 1
 void compute_golden_lut_intel(uint32_t* pTbl, uint32_t n)
@@ -151,9 +175,9 @@ uint32_t option_13_golden_intel(const void* M, uint32_t bytes, uint32_t prev/* =
     while (bytes >= LEAF_SIZE_INTEL)
     {
         const uint32_t n = bytes < 256 * 24 ? bytes * 2731 >> 16 : 256;
-        pA += 8 * n;
-        uint64_t pB = pA + 8 * n;
-        uint64_t pC = pB + 8 * n;
+        pA += 8ull * n;
+        uint64_t pB = pA + 8ull * n;
+        uint64_t pC = pB + 8ull * n;
         uint64_t crcB = 0, crcC = 0;
         switch (n)
             CRC_ITERS_256_TO_2();

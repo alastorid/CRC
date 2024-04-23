@@ -11,6 +11,7 @@ void tabular_method_table_print_demo();
 void golden_lut_print_demo_intel();
 void golden_lut_print_demo_amd();
 
+#ifdef _M_AMD64
 extern "C"
 {
     uint32_t option_1_cf_jump(const void* M, uint32_t bytes);
@@ -18,7 +19,7 @@ extern "C"
     uint32_t option_3_bit_mask(const void* M, uint32_t bytes);
     uint32_t option_4_cmove(const void* M, uint32_t bytes);
 }
-
+#endif
 uint32_t option_5_naive_cpp(const void* M, uint32_t bytes);
 
 uint32_t option_6_tabular_1_byte(const void* M, uint32_t bytes);
@@ -95,11 +96,15 @@ int main()
     printf("--------------------------------|------------|---------------------------------\n");
 
     TestItem items[] = {
+#ifdef _M_AMD64
         TestItem("Option 1:  Naive    - CF Jump ",	option_1_cf_jump,			    20),
         TestItem("Option 2:  Naive    - Mul Mask",	option_2_multiply_mask,		    35),
         TestItem("Option 3:  Naive    - Bit Mask",	option_3_bit_mask,			    45),
+#endif
         TestItem("Option 5:  Naive    - CPP     ",	option_5_naive_cpp,			    60),
+#ifdef _M_AMD64
         TestItem("Option 4:  Naive    - Cmove   ",	option_4_cmove,				    60),
+#endif
         TestItem("Option 6:  Tabular  - 1 byte  ",	option_6_tabular_1_byte,	    180),
         TestItem("Option 7:  Tabular  - 2 bytes ",	option_7_tabular_2_bytes,	    300),
         TestItem("Option 11: Hardware - 1 byte  ",	option_11_hardware_1_byte,	    500),
@@ -109,7 +114,7 @@ int main()
         TestItem("Option 12: Hardware - 8 bytes ",	option_12_hardware_8_bytes,	    5000),
         TestItem("Option 14: Golden   - AMD     ",	option_14_golden_amd,		    9000),
         TestItem("Option 13: Golden   - Intel   ",	option_13_golden_intel,		    10000),
-        TestItem("Option 99: Naive-Gary S. Brown",	option_99_naive_cpp_table,      5000),
+        TestItem("Option 99: Naive-Gary S. Brown",	option_99_naive_cpp_table,      1100),
     };
 
     for (const TestItem& item : items)
@@ -131,7 +136,7 @@ int main()
         const double ns = (double)(duration_cast<nanoseconds>(end - start).count()) / item.m_runs;
 
         // approximating CPU clock as 4 GHz
-        printf(" %s | 0x%08x | %7.1f MB/s | %.2f bits/cycle\n", item.m_name, result, kBytes / ns * 1e3, 2 * kBytes / ns);
+        printf(" %s | 0x%08x | %7.1f MB/s | %.2f bits/cycle\n", item.m_name, result, kBytes / ns * 1e3, 2ull * kBytes / ns);
     }
 
     printf("--------------------------------|------------|---------------------------------\n");
